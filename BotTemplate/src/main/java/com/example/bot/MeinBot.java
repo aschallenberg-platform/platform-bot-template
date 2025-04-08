@@ -16,17 +16,23 @@ import java.util.Map;
  *
  * getGameData() gibt dir verschiedene Informationen über das Spiel wie z.B. das Modul und die Version, welche gespielt werden.
  * Außerdem bekommst du dort Informationen über alle Bots, die an dem Spiel teilnehmen.
+ *
+ * Mit sendMove(Object) sendest du einen Spielzug (Object) an das Spiel. Alle anderen vom Spiel benötigten Daten
+ * (Object) schickst du mit sendMessage(Object). Beachte, dass du dich hierbei streng an die Vorgaben des Spiels hältst.
+ *
+ * onInterrupt() und onBotDisconnected(BotData) solltest du nur überschreiben, wenn das Spiel dies explizit fordert.
  */
 public class MeinBot extends Bot {
 	@Override
 	public void onGameStart() {
-		/* Wenn eine Lobby voll ist und gestartet wird, dann wird diese Methode aufgerufen. Nutze sie, um deinen Bot zu
+		/*
+		 * Wenn eine Lobby voll ist und gestartet wird, dann wird diese Methode aufgerufen. Nutze sie, um deinen Bot zu
 		 * initiieren. Falls dein Bot mehrere Versionen und Module unterstützt, kannst du dies hier berücksichtigen.
 		 */
 	}
 
 	@Override
-	public void onMove(final Object o) {
+	public void onMove(final Object object) {
 		/*
 		 * Normalerweise wird hier ein Spielzug von dir ausgeführt. Was genau dieses Object ist, welches du übergeben
 		 * bekommst und was du zurücksenden musst, steht in dem Spielablauf auf der Plattform.
@@ -34,7 +40,7 @@ public class MeinBot extends Bot {
 	}
 
 	@Override
-	public void onMessageReceived(final Object o) {
+	public void onMessageReceived(final Object object) {
 		/*
 		 * Hier werden Spieldaten empfangen, die unabhängig von einem Spielzug losgesendet werden (z.B. das
 		 * aktualisierte Spielfeld, nachdem und bevor andere Bots am Zug sind).
@@ -42,7 +48,7 @@ public class MeinBot extends Bot {
 	}
 
 	@Override
-	public void onGameFinished(final Map<BotData, Integer> map) {
+	public void onGameFinished(final Map<BotData, Integer> scores) {
 		/*
 		 * Wenn das Spiel regelkonform beendet wurde, erhältst du hier die Scores als Map. Zu jedem teilnehmendem Bot
 		 * gibt es einen Integer-Wert, der sagt, wie viele Punkte der Bot erreicht hat. Der Bot mit den meisten Punkten
