@@ -1,8 +1,8 @@
 package com.example.bot;
 
 import de.aschallenberg.botclient.bot.Bot;
-import de.aschallenberg.middleware.dto.BotData;
-import de.aschallenberg.middleware.messages.Payload;
+import de.aschallenberg.communication.dto.BotData;
+import de.aschallenberg.communication.messages.Payload;
 
 import java.util.Map;
 
