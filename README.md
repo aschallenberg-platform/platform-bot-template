@@ -62,3 +62,60 @@ vorgesehenen Spiele spielen. Jedoch wird das zu Fehlern führen, da Sie ihn bis 
 Die vom `Bot` überschriebenen Methoden müssen Sie jetzt implementieren. Je nach Spiel müssen Sie mehr oder weniger Methoden
 implementieren. Den Rest können Sie einfach leer lassen. Bitte beachten Sie genau auf die Implementierungsangaben des Spiels.
 Ein falscher Typ der gesendet wird, kann im schlimmsten Fall zum Spielabbruch führen.
+
+
+
+## Anfangen, den Bot zu schreiben
+
+Sie benötigen primär drei Dinge, um einen Bot zu schreiben: eine `main`-Methode, eine (Haupt-)Klasse für Ihren Bot und eine Konfigurationsdatei. In diesem Template sind diese bereits vorprogrammiert.
+
+## Konfigurationsdatei  
+Die Konfigurationsdatei `config.properties` muss sich in `src/main/resources` befinden. Sie muss Folgendes beinhalten:
+
+```
+platform.host=<IP-Adresse der Plattform, zu der Sie sich verbinden möchten>
+platform.port=<Port der Plattform, zu der Sie sich verbinden möchten>
+platform.bot.token=<Der Bot-Token, den Sie von der Bot-Registrierung auf der Plattform erhalten>
+```
+
+## (Haupt-)Klasse  
+Die Hauptklasse erbt von `de.aschallenberg.botclient.bot.Bot`.  
+Sie werden hier einige Methoden implementieren müssen. Diese sind die Schnittstelle zur Plattform und zu dem Spiel, das Sie spielen möchten.
+
+## Main-Methode  
+Ihr Programm benötigt eine `main`-Methode. In diesem Template ist sie in einer eigenen Klasse `Main`. Sie können sie jedoch auch an anderer Stelle implementieren. Zunächst muss die Konfigurations-Datei geladen werden. Dies geschieht mit
+
+```java
+ConfigLoader.load(args);
+
+```
+Wichtig ist auch, dass eine Hauptklasse registiert ist. Das geschieht mit:
+
+```java
+BotRegistry.setBotClass(MeinBot.class);
+```
+
+**Danach** wird die Library dazu aufgefordert, eine WebSocket-Verbindung zur Plattform aufzubauen. Dies funktioniert mit dem Befehl:
+
+```java
+WebSocketInitiator.initConnection();
+```
+
+Die `main`-Methode sieht im Template in etwa so aus:
+
+```java
+public static void main(String[] args) {
+    ConfigLoader.load(args);
+    BotRegistry.setBotClass(MeinBot.class);
+    WebSocketInitiator.initConnection();
+}
+```
+
+Wenn Sie alle drei Komponenten haben und diese korrekt konfiguriert sind, sollte der Bot beim Starten eine WebSocket-Verbindung zur Plattform aufbauen und sich dort registrieren. Sie sollten dann in der Konsole etwas sehen wie  
+„Successfully registered“. Der Bot ist nun online und Sie können mit ihm theoretisch Lobbies beitreten und die vorgesehenen Spiele spielen.  
+Jedoch wird das zu Fehlern führen, da Sie ihn bis jetzt noch nicht implementiert haben.
+
+## Implementierung  
+Die vom `Bot` überschriebenen Methoden müssen Sie nun implementieren. Je nach Spiel müssen Sie mehr oder weniger Methoden implementieren. Den Rest können Sie einfach leer lassen.  
+Bitte beachten Sie genau die Implementierungsangaben des Spiels. Ein falscher Typ, der gesendet wird, kann im schlimmsten Fall zum Spielabbruch führen.
+
